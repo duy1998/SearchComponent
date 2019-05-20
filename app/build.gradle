@@ -1,0 +1,231 @@
+apply plugin: 'com.android.application'
+
+//apply plugin: 'com.google.protobuf'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'io.fabric'
+
+apply plugin: 'kotlin-kapt'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        google()
+        maven { url "https://jitpack.io" }
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+//        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'io.fabric.tools:gradle:1.28.0'
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.6'
+    }
+}
+
+repositories {
+    maven { url "https://jitpack.io" }
+    maven { url 'https://maven.fabric.io/public' }
+    mavenCentral()
+}
+
+android {
+    def configs = rootProject.ext.configurations
+
+    compileSdkVersion configs.compileSdkVersion
+    buildToolsVersion configs.buildToolVersion
+
+    defaultConfig {
+        applicationId configs.applicationId
+
+        minSdkVersion configs.minSdkVersion
+        targetSdkVersion configs.targetSdkVersion
+
+        versionCode configs.versionCode
+        versionName configs.versionName
+
+        vectorDrawables.useSupportLibrary = true
+
+        multiDexEnabled true
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField 'String', 'RTMP', '"rtmp://120.138.69.12:1936/wpl/"'
+        buildConfigField 'String', 'ZLP', '"zlp://125.212.203.140/"'
+        buildConfigField 'String', 'ZLIVE', '"zlive://61.28.226.94/"'
+        buildConfigField 'String', 'ULIVE', '"ulive://49.213.118.162:7000"'
+        buildConfigField 'String', 'WS', '"ws://49.213.118.164/ws"'
+        buildConfigField 'String', 'WS2', '"ws://49.213.118.164/ws"'
+        buildConfigField 'String', 'QRCODELOGIN', '"https://qr.360live.vn/api_cross_login"'
+        buildConfigField 'String', 'API', '"https://api.360live.vn"'
+        buildConfigField 'int', 'BUILD_NUMBER', configs.buildNumber
+
+        // Configs for development environment
+        buildConfigField 'int', 'MODE_DEVELOPMENT', configs.modeDevelopment
+        buildConfigField 'String', 'DEVELOPMENT_SERVER', '"https://dev.360live.vn/"'
+        buildConfigField 'String', 'SHORT_VIDEO_DEVELOPMENT_SERVER', configs.shortVideoEndpointDevelopment
+        buildConfigField 'String', "SSE_DEVELOPMENT_SERVER", configs.sseEndpointDevelopment
+
+        // Configs for production environment
+        buildConfigField 'int', 'MODE_PRODUCTION', configs.modeProduction
+        buildConfigField 'String', 'PRODUCTION_SERVER', '"https://api.360live.vn/"'
+        buildConfigField 'String', 'SHORT_VIDEO_PRODUCTION_SERVER', configs.shortVideoEndpointProduction
+        buildConfigField 'String', "SSE_PRODUCTION_SERVER_SERVER", configs.sseEndPointProduction
+
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
+    }
+
+    signingConfigs {
+        debug {
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('keystoreDev.properties').newDataInputStream())
+
+            storeFile file(properties.getProperty('KEY_STORE'))
+            storePassword properties.getProperty('KEY_STORE_PASSWORD')
+            keyAlias properties.getProperty('KEY_STORE_ALIAS')
+            keyPassword properties.getProperty('KEY_STORE_ALIAS_PASSWORD')
+        }
+
+        release {
+            File configFile = project.rootProject.file('keystorePro.properties')
+            if (!configFile.exists()) {
+                configFile = project.rootProject.file('keystoreDev.properties')
+            }
+
+            Properties properties = new Properties()
+            properties.load(configFile.newDataInputStream())
+
+            storeFile file(properties.getProperty('KEY_STORE'))
+            storePassword properties.getProperty('KEY_STORE_PASSWORD')
+            keyAlias properties.getProperty('KEY_STORE_ALIAS')
+            keyPassword properties.getProperty('KEY_STORE_ALIAS_PASSWORD')
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            android.applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    def newName = output.outputFile.name
+                    def versionName = variant.versionName
+                    def versionCode = variant.versionCode
+                    def buildNumber = configs.buildNumber
+
+                    newName = newName.replace("app", "360Live")
+                    newName = newName.replace("-release", "_" + versionName + "_" + versionCode + "_" + buildNumber)
+
+                    outputFileName = new File(newName)
+                }
+            }
+
+            buildConfigField 'int', 'CURRENT_MODE', configs.modeProduction
+        }
+
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.debug
+
+//            buildConfigField 'int', 'CURRENT_MODE', configs.modeDevelopment
+            buildConfigField 'int', 'CURRENT_MODE', configs.modeProduction
+        }
+    }
+
+    lintOptions {
+        quiet false
+        abortOnError true
+        ignoreWarnings true
+    }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/rxjava.properties'
+        exclude 'META-INF/maven/jaxen/jaxen/pom.properties'
+        exclude 'META-INF/maven/jaxen/jaxen/pom.xml'
+        exclude 'META-INF/INDEX.LIST'
+        exclude 'lib/x86_64/libimagepipeline.so'
+        exclude 'lib/arm64-v8a/libimagepipeline.so'
+        exclude 'lib/x86_64/libstatic-webp.so'
+        exclude 'lib/arm64-v8a/libstatic-webp.so'
+    }
+
+    dexOptions {
+        jumboMode = true
+
+        preDexLibraries = false
+        javaMaxHeapSize "3g"
+    }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets.main {
+        java.srcDir "src/main/java"
+        java.srcDir "src/main/kotlin"
+        res.srcDir "src/main/res"
+        manifest.srcFile "src/main/AndroidManifest.xml"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.core:core-ktx:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+}
+
+//protobuf {
+//    protoc {
+//        artifact = 'com.google.protobuf:protoc:3.4.0'
+//    }
+//    plugins {
+//        grpc {
+//            artifact = 'io.grpc:protoc-gen-grpc-java:1.7.0'
+//        }
+//        javalite {
+//            artifact = 'com.google.protobuf:protoc-gen-javalite:3.0.0'
+//        }
+//    }
+//    generateProtoTasks {
+//        all()*.plugins {
+//            javalite {}
+//        }
+//        ofNonTest()*.plugins {
+//            grpc {
+//                // Options added to --grpc_out
+//                option 'lite'
+//            }
+//        }
+//    }
+//}
+
+configurations.all {
+    resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.0'
+}

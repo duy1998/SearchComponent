@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources[<!ENTITY appname "360Live2">]>
+<resources>
+    <string name="app_name" translatable="false">&appname;</string>
+</resources>
