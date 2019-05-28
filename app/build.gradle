@@ -1,13 +1,8 @@
 apply plugin: 'com.android.application'
-
 //apply plugin: 'com.google.protobuf'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'io.fabric'
-
 apply plugin: 'kotlin-kapt'
 
 buildscript {
@@ -129,6 +124,9 @@ android {
             }
 
             buildConfigField 'int', 'CURRENT_MODE', configs.modeProduction
+            buildConfigField 'String', 'API_ENDPOINT', '"https://api.360live.vn/"'
+            buildConfigField 'String', 'SHORT_VIDEO_END_POINT', configs.shortVideoEndpointProduction
+            buildConfigField 'String', "SSE_ENDPOINT", configs.sseEndPointProduction
         }
 
         debug {
@@ -136,8 +134,10 @@ android {
             shrinkResources false
             signingConfig signingConfigs.debug
 
-//            buildConfigField 'int', 'CURRENT_MODE', configs.modeDevelopment
-            buildConfigField 'int', 'CURRENT_MODE', configs.modeProduction
+            buildConfigField 'int', 'CURRENT_MODE', configs.modeDevelopment
+            buildConfigField 'String', 'API_ENDPOINT', '"https://dev.360live.vn/"'
+            buildConfigField 'String', 'SHORT_VIDEO_END_POINT', configs.shortVideoEndpointDevelopment
+            buildConfigField 'String', "SSE_ENDPOINT", configs.sseEndpointDevelopment
         }
     }
 
@@ -185,7 +185,6 @@ android {
 
     sourceSets.main {
         java.srcDir "src/main/java"
-        java.srcDir "src/main/kotlin"
         res.srcDir "src/main/res"
         manifest.srcFile "src/main/AndroidManifest.xml"
     }
@@ -193,12 +192,42 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core-ktx:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    // Kotlin
+    implementation deps.kotlin.stdlib
+
+    // UI
+    implementation deps.androidx.appcompat_core
+    implementation deps.androidx.core_ktx
+
+    // Dagger
+    implementation deps.dagger.core
+    kapt deps.dagger.processor
+    kapt deps.dagger.compiler
+
+    // Retrofit
+    implementation deps.retrofit.core
+    implementation deps.retrofit.gson_converter
+    implementation deps.retrofit.adapter_rxjava2
+
+    // OkHttp
+    implementation deps.okhttp.core
+    implementation deps.okhttp.logging_interceptor
+
+    // Gson
+    implementation deps.gson.core
+
+    implementation group: 'com.google.guava', name: 'guava', version: '24.1-jre'
+
+    // Rx
+    implementation deps.rx.java
+    implementation deps.rx.android
+
+    // Test
+    testImplementation deps.test.junit
+    testImplementation deps.test.mockito
+    androidTestImplementation deps.android_test.runner
+    androidTestImplementation deps.android_test.espresso_core
 }
 
 //protobuf {
