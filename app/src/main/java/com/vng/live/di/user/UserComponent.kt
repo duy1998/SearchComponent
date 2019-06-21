@@ -12,7 +12,7 @@ import retrofit2.Retrofit
  * @since 17/06/2019
  */
 
-@Subcomponent(modules = [RestModule::class])
+@Subcomponent(modules = [RestModule::class, ServiceModule::class])
 @UserScope
 interface UserComponent {
     fun plusUiComponent(): PresentationComponent
