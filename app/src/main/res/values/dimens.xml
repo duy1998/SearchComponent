@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="actionBarSize">56dp</dimen>
+
+    <!-- Tab layout -->
+    <dimen name="main_tab_icon_size">22dp</dimen>
+    <dimen name="main_tab_animated_icon_size">45dp</dimen>
+    <dimen name="main_tab_start_live_background_size">55dp</dimen>
 </resources>

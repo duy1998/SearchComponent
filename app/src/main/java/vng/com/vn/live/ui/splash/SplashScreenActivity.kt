@@ -12,6 +12,7 @@ import com.vng.live.di.AppVersion
 import com.vng.live.di.app.AppComponent
 import com.vng.live.di.presentation.PresentationComponent
 import com.vng.live.di.user.UserComponent
+import com.vng.live.ui.main.MainActivity
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -61,6 +62,8 @@ class SplashScreenActivity : AppCompatActivity() {
 
                 override fun onNext(t: Response<ConfigsData>) {
                     Log.d(SplashScreenActivity::class.java.canonicalName, appComponent.provideGson().toJson(t))
+                    startActivity(MainActivity.intentFor(this@SplashScreenActivity))
+                    finish()
                 }
 
                 override fun onError(e: Throwable) {

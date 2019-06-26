@@ -3,7 +3,7 @@
 ext {
     configurations = [
 
-            applicationId                : "com.vng.live360",
+            applicationId                : "com.vng.live360_2",
             buildToolVersion             : "28.0.3",
             compileSdkVersion            : 28,
             minSdkVersion                : 18,

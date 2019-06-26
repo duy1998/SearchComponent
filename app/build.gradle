@@ -199,6 +199,9 @@ dependencies {
     // UI
     implementation deps.androidx.appcompat_core
     implementation deps.androidx.core_ktx
+    implementation deps.androidx.constraint_layout
+    implementation deps.androidx.navigation_fragment_ktx
+    implementation deps.androidx.navigation_ui_ktx
 
     // Dagger
     implementation deps.dagger.core

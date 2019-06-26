@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="main_tab_enable_drawables">
+        <item>@drawable/ic_home_enable_anim</item>
+        <item>@drawable/ic_short_video_enable_anim</item>
+        <item>@drawable/ic_mess_enable_anim</item>
+        <item>@drawable/ic_profile_enable_anim</item>
+    </integer-array>
+
+    <integer-array name="main_tab_disable_drawables">
+        <item>@drawable/ic_home_disable_anim</item>
+        <item>@drawable/ic_short_video_disable_anim</item>
+        <item>@drawable/ic_mess_disable_anim</item>
+        <item>@drawable/ic_profile_disable_anim</item>
+    </integer-array>
+</resources>

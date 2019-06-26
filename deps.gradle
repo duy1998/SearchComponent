@@ -3,7 +3,9 @@ def deps = [:]
 def versions = [:]
 versions.kotlin = ext.kotlin_version
 versions.appcompat_core = "1.0.2"
+versions.constraint_layout = "1.1.2"
 versions.core_ktx = "1.0.2"
+versions.navigation = "2.0.0"
 versions.dagger = "2.11"
 versions.retrofit = "2.4.0"
 versions.retrofit_rxjava2_adapter = "2.6.0"
@@ -19,7 +21,10 @@ deps.kotlin = kotlin
 
 def androidx = [:]
 androidx.appcompat_core = "androidx.appcompat:appcompat:$versions.appcompat_core"
+androidx.constraint_layout = "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
 androidx.core_ktx = "androidx.core:core-ktx:$versions.core_ktx"
+androidx.navigation_fragment_ktx = "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
+androidx.navigation_ui_ktx = "androidx.navigation:navigation-ui-ktx:$versions.navigation"
 deps.androidx = androidx
 
 def firebase = [:]
