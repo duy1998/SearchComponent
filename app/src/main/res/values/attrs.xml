@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources[<!ENTITY appname "360Live">]>
+<resources>
+    <declare-styleable name="LiveIndicatorView">
+        <attr name="columnRadius" format="dimension|reference" />
+        <attr name="columnSpacing" format="dimension|reference" />
+        <attr name="iconColor" format="color|reference" />
+        <attr name="maxColumnHeight" format="dimension|reference" />
+        <attr name="minColumnHeight" format="dimension|reference" />
+        <attr name="countColumn" format="integer" />
+        <attr name="FPS" format="integer"/>
+        <attr name="step" format="dimension|reference"/>
+        <attr name="widthColumn" format="dimension|reference"/>
+        <attr name="style" format="enum">
+            <enum name="view" value="0"/>
+            <enum name="col" value="1"/>
+        </attr>
+
+    </declare-styleable>
+</resources>
