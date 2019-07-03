@@ -1,26 +1,29 @@
-package com.vng.live
+package com.vng.live.ui.main.search
 
-import android.media.Image
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.vng.live.data.SimpleProfile
+import com.vng.live.R
+import com.vng.live.data.model.SimpleProfile
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.layout_item_search.view.*
 
 class SearchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
-    private val items: ArrayList<SimpleProfile> = ArrayList()
+    private val items: MutableList<SimpleProfile> = ArrayList()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return SearchViewHolder(
-                LayoutInflater.from(parent.context).inflate(
-                        R.layout.layout_item_search,
-                        parent,
-                        false
-                )
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.layout_item_search,
+                parent,
+                false
+            )
         )
     }
 
@@ -29,26 +32,23 @@ class SearchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        items[position]?.let {
-            (holder as SearchViewHolder).bind(holder, it) }
-    }
-
-    fun setData(list: ArrayList<SimpleProfile>){
+            (holder as SearchViewHolder).bind(holder, items[position]) }
+    fun setData(list: List<SimpleProfile>?) {
         items.clear()
-        list?.apply {
-            items.addAll(this)
-            notifyDataSetChanged()
-
+        if (!list.isNullOrEmpty()) {
+            items.addAll(list)
         }
-
+        notifyDataSetChanged()
     }
 
-    fun addMoreData(list: ArrayList<SimpleProfile>){
-        list?.apply {
-            items.addAll(this)
-            notifyDataSetChanged()
+    fun addMoreData(list: List<SimpleProfile>?){
+        val currCount = items.size
+        if (!list.isNullOrEmpty()) {
+            items.addAll(list)
+            notifyItemRangeInserted(currCount, list.size)
         }
     }
+
     class SearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val avatar: CircleImageView = itemView.avatar
 
@@ -56,10 +56,11 @@ class SearchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
         private val profileID:TextView=itemView.profileId
 
-        private val liveBox:LiveBox= itemView.liveBox
+        private val liveBox : LinearLayout =itemView.liveLinear
 
         private val followState:ImageView= itemView.followState
 
+        @SuppressLint("SetTextI18n")
         fun bind (holder: SearchViewHolder, item:SimpleProfile){
             Glide.with(itemView)
                     .load(item.avatar)

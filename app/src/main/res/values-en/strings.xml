@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="search_hint">Tìm bạn trên Facebook</string>
-    <string name="reminder_empty_messages"><![CDATA[Những người bạn theo dõi hiện giờ không Live]]></string>
-    <string name="reminder_search_more">Go following</string>
+
+    <!--Network-->
     <string name="connection_failed_messages">Không có kết nối mạng</string>
-    <string name="reminder_retry">Thử lại</string>
+    <string name="retry">Thử lại</string>
+    <!--Search-->
+    <string name="search_find_friend">Tìm bạn trên Facebook</string>
+    <string name="search_find_name_id">Tìm kiếm theo tên hoặc ID</string>
+    <string name="search_done_edit_text">Hủy</string>
+    <string name="search_title_top_star">Top STAR</string>
+    <string name="live">LIVE</string>
 </resources>

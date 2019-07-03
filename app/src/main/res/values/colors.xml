@@ -8,4 +8,11 @@
     <color name="black">#000000</color>
     <color name="color_262626">#262626</color>
     <color name="color_4d4d4d">#4d4d4d</color>
+
+    <!--Network-->
+    <color name="network_notification">#262626</color>
+    <color name="network_try_button">#4d4d4d</color>
+
+    <!--Search-->
+    <color name="search_item_live">@color/colorPrimary</color>
 </resources>

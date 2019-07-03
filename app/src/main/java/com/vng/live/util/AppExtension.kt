@@ -1,6 +1,8 @@
 package com.vng.live.util
 
+import android.accounts.NetworkErrorException
 import android.content.Context
+import android.net.ConnectivityManager
 import android.view.ViewGroup
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
@@ -8,6 +10,7 @@ import androidx.core.content.ContextCompat
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.vng.live.LiveApplication
+import java.net.SocketTimeoutException
 
 /**
  * Copyright (C) 2017, VNG Corporation.
@@ -20,6 +23,19 @@ import com.vng.live.LiveApplication
 
 inline fun <reified T> Gson.fromJson(json: String?): T =
     this.fromJson<T>(json, object : TypeToken<T>() {}.type)
+
+// endregion
+
+// region Network
+fun isNetworkConnected(): Boolean {
+    val connectivityManager = LiveApplication.instance.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val activeNetwork = connectivityManager.activeNetworkInfo
+    return activeNetwork?.isConnectedOrConnecting ?: false
+}
+
+fun Throwable?.isNetworkConnected():Boolean{
+    return this is SocketTimeoutException ||this is NetworkErrorException
+}
 
 // endregion
 

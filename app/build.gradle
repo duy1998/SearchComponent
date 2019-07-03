@@ -60,7 +60,7 @@ android {
 
         // Configs for development environment
         buildConfigField 'int', 'MODE_DEVELOPMENT', configs.modeDevelopment
-        buildConfigField 'String', 'DEVELOPMENT_SERVER', '"https://dev.360live.vn/"'
+        buildConfigField 'String', 'DEVELOPMENT_SERVER', '"https://api.360live.vn/"'
         buildConfigField 'String', 'SHORT_VIDEO_DEVELOPMENT_SERVER', configs.shortVideoEndpointDevelopment
         buildConfigField 'String', "SSE_DEVELOPMENT_SERVER", configs.sseEndpointDevelopment
 
@@ -192,6 +192,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
 
     // Kotlin
     implementation deps.kotlin.stdlib
@@ -225,6 +226,10 @@ dependencies {
     // Rx
     implementation deps.rx.java
     implementation deps.rx.android
+
+    //Glide
+    implementation deps.glide.core
+    annotationProcessor deps.glide.compiler
 
     // Test
     testImplementation deps.test.junit

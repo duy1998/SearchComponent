@@ -68,4 +68,10 @@ android_test.espresso_core = "androidx.test.espresso:espresso-core:3.1.1"
 
 deps.android_test = android_test
 
+def glide = [:]
+glide.core = "com.github.bumptech.glide:glide:4.9.0"
+glide.compiler = "com.github.bumptech.glide:compiler:4.9.0"
+
+deps.glide = glide
+
 ext.deps = deps
