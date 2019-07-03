@@ -113,7 +113,7 @@ class SearchPresenter : BasePresenter<SearchView>() {
 
         override fun onComplete() {
             presenter.paging.isLoading=false
-            presenter.view?.setLoadmoreState(presenter.paging.isLoading)
+
             disposable.dispose()
         }
 
