@@ -189,8 +189,9 @@ android {
         manifest.srcFile "src/main/AndroidManifest.xml"
     }
 }
-
+apply plugin: 'kotlin-kapt'
 dependencies {
+    implementation "com.github.leonardoxh:retrofit2-livedata-adapter:1.1.2"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 
@@ -236,6 +237,8 @@ dependencies {
     testImplementation deps.test.mockito
     androidTestImplementation deps.android_test.runner
     androidTestImplementation deps.android_test.espresso_core
+
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-rc01'
 }
 
 //protobuf {

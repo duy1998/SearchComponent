@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.vng.live.R
 import com.vng.live.data.model.SimpleProfile
 import de.hdodenhof.circleimageview.CircleImageView
@@ -63,8 +64,11 @@ class SearchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         @SuppressLint("SetTextI18n")
         fun bind (holder: SearchViewHolder, item:SimpleProfile){
             Glide.with(itemView)
-                    .load(item.avatar)
-                    .into(holder.avatar)
+                .load(item.avatar)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .error(R.drawable.img_empty_avatar_100)
+                .override(itemView.resources.getDimensionPixelSize(R.dimen.search_avatar_size))
+                .into(holder.avatar)
             holder.displayName.text=item.displayName
             holder.profileID.text= "ID: "+item.userId.toString()
             if (item.isLive)

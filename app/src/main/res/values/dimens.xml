@@ -9,4 +9,5 @@
 
     <!--Search-->
     <dimen name="search_live_item_text_size">8sp</dimen>
+    <dimen name="search_avatar_size">50dp</dimen>
 </resources>

@@ -1,5 +1,7 @@
 package com.vng.live.data.remote
 
+import com.github.leonardoxh.livedatacalladapter.LiveDataCallAdapterFactory
+import com.github.leonardoxh.livedatacalladapter.LiveDataResponseBodyConverterFactory
 import retrofit2.CallAdapter
 import retrofit2.Converter
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -15,11 +17,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitHelper {
     val callAdapters: List<CallAdapter.Factory> =
             listOf(
-                RxJava2CallAdapterFactory.create()
+                RxJava2CallAdapterFactory.create(),
+                LiveDataCallAdapterFactory.create()
             )
 
     val converter: List<Converter.Factory> =
             listOf(
+                LiveDataResponseBodyConverterFactory.create(),
                 GsonConverterFactory.create()
             )
 }

@@ -10,4 +10,5 @@
     <string name="search_done_edit_text">Hủy</string>
     <string name="search_title_top_star">Top STAR</string>
     <string name="live">LIVE</string>
+    <string name="search_loading">Đang xử lí</string>
 </resources>

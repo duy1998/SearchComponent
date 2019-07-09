@@ -1,9 +1,11 @@
 package com.vng.live.ui.main.widget
 
+import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.vng.live.util.isNetworkConnected
 
 class EndlessRecyclerViewListener(
     private val paging: Paging,
@@ -30,11 +32,12 @@ class EndlessRecyclerViewListener(
     }
 
     private fun loadNextPageIfNeeded(dy: Int) {
-        if (!paging.hasNext || paging.isLoading) {
+        if (!paging.hasNext || paging.isLoading|| !isNetworkConnected()) {
             return
         }
 
-        if (isScrollNearBottom(dy) && pageLoader != null) {
+        if (isScrollNearBottom(dy) && pageLoader != null ) {
+            Log.d("TestAdd","Load more")
             pageLoader!!.loadNextPage()
         }
     }

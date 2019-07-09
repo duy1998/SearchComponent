@@ -18,7 +18,7 @@ class TextWatcherSearchListener: TextWatcher {
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         searchLoader!!.setDataAfterSearch(s.toString())
     }
-
+    
     fun setSearchLoader(searchLoader: SearchLoader){
         this.searchLoader=searchLoader
     }

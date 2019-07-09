@@ -97,19 +97,22 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white">
+                android:layout_marginTop="120dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/fbFriendButton">
 
                 <include
-                    android:id="@+id/noNetworkLayout"
+                    android:id="@+id/noNetworkTopStarLayout"
                     layout="@layout/layout_no_network"
                     android:visibility="invisible"/>
 
+                <include layout="@layout/search_loading_layout"
+                    android:id="@+id/loadingTopStar"/>
+
                 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                    android:id="@+id/swipeRefreshLayout"
+                    android:id="@+id/topStarSwipeRefreshLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="120dp"
-                    app:layout_constraintTop_toBottomOf="@id/fbFriendButton">
+                    android:layout_height="match_parent">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/topStarList"
@@ -120,31 +123,31 @@
                 <include
                     android:id="@+id/emptyTopStarLayout"
                     layout="@layout/layout_search_empty"/>
+
             </FrameLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!--Search Layout-->
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <FrameLayout
             android:id="@+id/searchLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/noNetworkSearchLayout"
+                layout="@layout/layout_no_network"
+                android:visibility="invisible"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/searchList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </androidx.recyclerview.widget.RecyclerView>
-            <ProgressBar
-
-                android:id="@+id/progressLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"/>
+            <include layout="@layout/search_loading_layout"
+                android:id="@+id/loadingSearch"/>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
 
     </FrameLayout>
 

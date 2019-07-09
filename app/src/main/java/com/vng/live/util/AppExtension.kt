@@ -33,7 +33,7 @@ fun isNetworkConnected(): Boolean {
     return activeNetwork?.isConnectedOrConnecting ?: false
 }
 
-fun Throwable?.isNetworkConnected():Boolean{
+fun Throwable?.isNetworkDisConnected():Boolean{
     return this is SocketTimeoutException ||this is NetworkErrorException
 }
 
